@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#080a0d">
+    <title>Offline FlipClock</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main class="app-shell">
+        <header class="topbar">
+            <div class="brand">
+                <span class="brand-mark" aria-hidden="true">◈</span>
+                <span>Offline FlipClock</span>
+            </div>
+            <div class="toolbar" aria-label="Clock controls">
+                <button type="button" class="control-button" id="countdownToggle" aria-expanded="false" aria-controls="countdownPanel">Countdown</button>
+                <button type="button" class="control-button" id="settingsToggle" aria-expanded="false" aria-controls="settingsPanel">⚙ Settings</button>
+                <button type="button" class="control-button primary" id="fullscreenButton" aria-label="Enter fullscreen display">Fullscreen</button>
+            </div>
+        </header>
+
+        <section class="clock-stage" aria-label="Local device clock">
+            <div class="clock-wrap">
+                <div class="clock" id="clock" role="timer" aria-live="polite" aria-atomic="true"></div>
+                <div class="date-line" id="dateLine"></div>
+                <div class="timezone-line">Device time zone: <span id="timezone">Unknown</span></div>
+            </div>
+        </section>
+
+        <section class="panel settings-panel" id="settingsPanel" hidden>
+            <div class="panel-heading">
+                <div>
+                    <p class="eyebrow">Preferences</p>
+                    <h2>Clock settings</h2>
+                </div>
+                <button type="button" class="icon-button" data-close-panel="settingsPanel" aria-label="Close settings">×</button>
+            </div>
+            <div class="settings-grid">
+                <fieldset>
+                    <legend>Time format</legend>
+                    <label class="choice"><input type="radio" name="timeFormat" value="12" checked><span>12-hour</span></label>
+                    <label class="choice"><input type="radio" name="timeFormat" value="24"><span>24-hour</span></label>
+                </fieldset>
+                <fieldset>
+                    <legend>Seconds</legend>
+                    <label class="choice"><input type="radio" name="seconds" value="show" checked><span>Show</span></label>
+                    <label class="choice"><input type="radio" name="seconds" value="hide"><span>Hide</span></label>
+                </fieldset>
+                <fieldset>
+                    <legend>AM / PM</legend>
+                    <label class="choice"><input type="radio" name="ampm" value="show" checked><span>Show</span></label>
+                    <label class="choice"><input type="radio" name="ampm" value="hide"><span>Hide</span></label>
+                </fieldset>
+                <fieldset>
+                    <legend>Flip animation</legend>
+                    <label class="choice"><input type="radio" name="animation" value="on" checked><span>On</span></label>
+                    <label class="choice"><input type="radio" name="animation" value="off"><span>Off</span></label>
+                </fieldset>
+            </div>
+        </section>
+
+        <section class="panel countdown-panel" id="countdownPanel" hidden>
+            <div class="panel-heading">
+                <div>
+                    <p class="eyebrow">Timer</p>
+                    <h2>Countdown</h2>
+                </div>
+                <button type="button" class="icon-button" data-close-panel="countdownPanel" aria-label="Close countdown">×</button>
+            </div>
+            <div class="countdown-inputs" aria-label="Countdown duration">
+                <label>Hours<input id="hoursInput" type="number" min="0" max="99" step="1" value="0" inputmode="numeric"></label>
+                <span aria-hidden="true">:</span>
+                <label>Minutes<input id="minutesInput" type="number" min="0" max="59" step="1" value="5" inputmode="numeric"></label>
+                <span aria-hidden="true">:</span>
+                <label>Seconds<input id="secondsInput" type="number" min="0" max="59" step="1" value="0" inputmode="numeric"></label>
+            </div>
+            <div class="countdown-display" id="countdownDisplay" role="timer" aria-live="polite" aria-atomic="true">00 : 05 : 00</div>
+            <p class="countdown-status" id="countdownStatus" aria-live="polite"></p>
+            <div class="countdown-actions">
+                <button type="button" class="control-button primary" id="startCountdown">Start</button>
+                <button type="button" class="control-button" id="pauseCountdown">Pause</button>
+                <button type="button" class="control-button" id="resetCountdown">Reset</button>
+            </div>
+        </section>
+
+        <footer class="footer">Local system time · No network connection required</footer>
+    </main>
+
+    <div class="fullscreen-overlay" id="fullscreenOverlay" aria-hidden="true">
+        <div class="fullscreen-clock">
+            <div class="clock-wrap">
+                <div class="clock" id="fullscreenClock" role="timer" aria-live="polite" aria-atomic="true"></div>
+                <div class="date-line" id="fullscreenDate"></div>
+                <div class="timezone-line">Device time zone: <span id="fullscreenTimezone">Unknown</span></div>
+            </div>
+        </div>
+        <button type="button" class="fullscreen-exit" id="fullscreenExit">Exit fullscreen</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
